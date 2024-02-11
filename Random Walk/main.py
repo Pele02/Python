@@ -34,7 +34,4 @@ while finish != 0:
     tim.setheading(random.choice(directions))
 
 
-
-
-
 my_screen.exitonclick()
