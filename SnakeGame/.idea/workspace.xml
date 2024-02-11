@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78031fb9-938a-4bf1-8ac0-504e4b29943a" name="Changes" comment="Snake game first little project" />
+    <list default="true" id="78031fb9-938a-4bf1-8ac0-504e4b29943a" name="Changes" comment="Snake game first little project">
+      <change beforePath="$PROJECT_DIR$/../Random Walk/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Random Walk/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +34,8 @@
     "Python.snake.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Coding/Python/Random Walk"
   }
 }]]></component>
   <component name="SharedIndexes">
