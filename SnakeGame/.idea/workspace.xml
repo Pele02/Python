@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78031fb9-938a-4bf1-8ac0-504e4b29943a" name="Changes" comment="Snake game first little project">
-      <change afterPath="$PROJECT_DIR$/scoreboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/snake.py" beforeDir="false" afterPath="$PROJECT_DIR$/snake.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,5 +114,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Snake game first little project" />
     <option name="LAST_COMMIT_MESSAGE" value="Snake game first little project" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="speed_up()" language="Python" />
+        <watch expression="speed_up()" language="Python" />
+        <watch expression="SPEED" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
