@@ -1,10 +1,11 @@
 import smtplib
 import requests
 from twilio.rest import Client
+import os
 
 #Stock data
 STOCK = "TSLA"
-STOCK_API = "WNO64XEK8I96M0W4"
+STOCK_API = os.getenv("STOCK_API")
 STOCK_PARAM = {
     "function" : "TIME_SERIES_DAILY",
     "symbol" : STOCK,
@@ -13,15 +14,15 @@ STOCK_PARAM = {
 }
 
 #News Data
-NEWS_API = "9c4339a2329a4c8fa101536b0aed9623"
+NEWS_API = os.getenv("NEWS_API")
 NEWS_PARAM = {
     "q" : "tesla",
     "apikey" : NEWS_API,
 }
 
 #Twilio sms data
-account_sid = "AC909c535a678eedf915f63e7c4ca76d7a"
-auth_token = "89454de5b11163eeb719550f0a352f3f"
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
 
 #Open and close stock data
 OPEN = '1. open'
@@ -36,8 +37,8 @@ def calculate_percentage_change(open_price, close_price):
 
 #Send mail
 def sendEmail():
-    sender = "pelealex02@gmail.com"
-    receiver = "pele_alex02@yahoo.com"
+    sender = "sender_email"
+    receiver = "receiver_email"
     password = "bjuk ydww rilv zsbe"
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as connection:
         connection.login(user=sender, password=password)
