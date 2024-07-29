@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Book</title>
+  </head>
+  <body>
+    <form action="{{ url_for('add') }}" method="POST">
+      <label>Book Name:
+      <input type="text"
+             name="book"
+             placeholder="Harry Potter">
+      </label>
+      <label>Book Author:
+      <input type="text"
+             name="author"
+             placeholder="J. K. Rowling">
+      </label>
+      <label>Rating:
+        <input type="text"
+               name="rating"
+               placeholder="ex: 7.6"
+        >
+      </label>
+      <button
+              class="btn btn-primary text-uppercase"
+              id="submitButton"
+              type="submit"
+            >
+              Add Book
+            </button>
+    </form>
+  </body>
+</html>
