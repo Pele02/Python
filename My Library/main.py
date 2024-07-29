@@ -33,7 +33,7 @@ with app.app_context():
 def home():
     result = db.session.execute(db.select(Book).order_by(Book.book))
     all_books = result.scalars()
-    return render_template("index.html", all_books = all_books)
+    return render_template("index.html", all_books=all_books)
 
 
 @app.route("/add", methods=["POST", "GET"])
@@ -47,11 +47,27 @@ def add():
 
     return render_template("add.html")
 
-@app.route("/edit/<int:id>")
-def edit(id):
-    book_to_update = db.session.execute(db.select(Book).where(Book.id == id)).scalar()
-    book_to_update.rating =
+
+@app.route("/edit_rating", methods=["GET", "POST"])
+def edit_rating():
+    if request.method == "POST":
+        book_id = request.form["id"]
+        book_to_update = db.get_or_404(Book, book_id)
+        book_to_update.rating = request.form["rating"]
+        db.session.commit()
+        return redirect(url_for('home'))
+    book_id = request.args.get('id')
+    book_selected = db.get_or_404(Book, book_id)
+    return render_template("rating.html", book=book_selected)
+
+
+@app.route("/delete_book")
+def delete_book():
+    book_id = request.args.get('id')
+    book_to_delete = db.get_or_404(Book, book_id)
+    db.session.delete(book_to_delete)
     db.session.commit()
+    return redirect(url_for('home'))
 
 
 if __name__ == "__main__":
