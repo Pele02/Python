@@ -9,9 +9,9 @@ from wtforms.validators import DataRequired, Length
 import requests
 
 # API key
-API_KEY = "30b367d1ee0d29802092ddfebcbf401d"
+API_KEY = "yourkey"
 url = "https://api.themoviedb.org/3/search/movie"
-
+MOVIE_DB_IMAGE_URL = "https://image.tmdb.org/t/p/w500"
 
 # Create the database object
 class Base(DeclarativeBase):
@@ -35,11 +35,11 @@ class Movie(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     year: Mapped[int] = mapped_column(Integer, nullable=False)
-    description: Mapped[str] = mapped_column(String(1000), nullable=False)
-    rating: Mapped[float] = mapped_column(Float, nullable=False)
-    ranking: Mapped[int] = mapped_column(Integer, nullable=False)
-    review: Mapped[str] = mapped_column(String(500), nullable=False)
-    img_url: Mapped[str] = mapped_column(String(1000), unique=True, nullable=False)
+    description: Mapped[str] = mapped_column(String(1000))
+    rating: Mapped[float] = mapped_column(Float)
+    ranking: Mapped[int] = mapped_column(Integer)
+    review: Mapped[str] = mapped_column(String(500))
+    img_url: Mapped[str] = mapped_column(String(1000), unique=True)
 
 
 # Define the model for Form
@@ -60,9 +60,16 @@ with app.app_context():
 
 
 @app.route("/")
+@app.route("/")
 def home():
-    movies = db.session.execute(db.select(Movie)).scalars()
-    return render_template("index.html", movies=movies)
+    result = db.session.execute(db.select(Movie).order_by(Movie.rating))
+    all_movies = result.scalars().all() # convert ScalarResult to Python List
+
+    for i in range(len(all_movies)):
+        all_movies[i].ranking = len(all_movies) - i
+    db.session.commit()
+
+    return render_template("index.html", movies=all_movies)
 
 
 @app.route("/edit movie", methods=["POST", "GET"])
@@ -97,6 +104,29 @@ def add_movie():
 
     return render_template("add.html", form=form)
 
+@app.route("/find")
+def find_movie():
+    movie_api_id = request.args.get("id")
+    if movie_api_id:
+        movie_api_url = f"https://api.themoviedb.org/3/movie/{movie_api_id}"
+        response = requests.get(movie_api_url, params={"api_key": API_KEY, "language": "en-US"})
+        response.raise_for_status()
+        data = response.json()
+
+        new_movie = Movie(
+            title=data["title"],
+            year=data["release_date"].split("-")[0],
+            img_url=f"{MOVIE_DB_IMAGE_URL}{data['poster_path']}",
+            description=data["overview"],
+            rating=0.0,
+            ranking=0,
+            review=""
+        )
+        db.session.add(new_movie)
+        db.session.commit()
+        return redirect(url_for("home"))
+
+    return redirect(url_for("home"))
 
 if __name__ == '__main__':
     app.run(debug=True)
